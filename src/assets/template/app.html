@@ -1,0 +1,33 @@
+<h2 class="hidden">METRONOME</h2>
+<div class="metronome">
+
+    <div class="row metronome-content top">
+        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 column">
+            <metronome-tempo tempo="{{tempoService.tempo}}" runStatus="{{tempoService.animation}}"></metronome-tempo>
+        </div>
+        <div class="col-xs-6 col-sm-4 col-md-4 col-lg-4 column">
+            <metronome-beat></metronome-beat>
+        </div>
+        <div class="col-xs-6 col-sm-4 col-md-4 col-lg-4 column">
+            <metronome-sound></metronome-sound>
+        </div>
+    </div>
+
+    <div class="row metronome-content middle">
+        <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 column">
+            <metronome-tempo-slider></metronome-tempo-slider>
+        </div>
+        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 column">
+            <metronome-tempo-control (on-change-detection-to-app) = "onChangeDetection()"></metronome-tempo-control>
+        </div>
+    </div>
+
+    <div class="row metronome-content bottom">
+        <div class="col-xs-6 col-sm-4 col-md-4 col-lg-4 column">
+            <metronome-volume></metronome-volume>
+        </div>
+        <div class="col-xs-6 col-sm-4 col-sm-offset-4 column">
+            <metronome-run (on-change-detection-to-app) = "onChangeDetectionRun()"></metronome-run>
+        </div>
+    </div>
+</div>

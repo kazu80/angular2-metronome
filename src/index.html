@@ -2,11 +2,114 @@
 <html>
 <head>
     <base href="/">
-    <title>Angular With Webpack</title>
+    <title>Angular2 metronome</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../src/css/styles.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-<body>
-<my-app>Loading...</my-app>
+<body style="background-image: url('../../src/assets/images/pic_01.png')">
+
+<div class="container">
+    <h2 class="hidden">HEADER</h2>
+    <div class="header">
+        <div class="header-title">
+            <p>METRONOME</p>
+        </div>
+        <div class="notification off hidden"></div>
+        <div class="notification on hidden"></div>
+    </div>
+
+    <metronome>
+        <h2 class="hidden">METRONOME</h2>
+        <div class="metronome">
+            <div class="row metronome-content top">
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 column">
+                    <div class="tempo">
+                        <div class="display">
+                            <p id="tempo-display-content">80</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6 col-sm-4 col-md-4 col-lg-4 column">
+                    <div class="beat">
+                        <div class="display">
+                            <ul id="beat">
+                                <li>1</li>
+                                <li>2</li>
+                                <li>3</li>
+                                <li class="active">4</li>
+                                <li>5</li>
+                                <li>6</li>
+                                <li>7</li>
+                                <li>8</li>
+                            </ul>
+                        </div>
+                        <button id="button-beat-down" class="metronome-button prev" style="background-image: url('../../src/assets/images/arrow-left.svg')"></button>
+                        <button id="button-beat-up" class="metronome-button next" style="background-image: url('../../src/assets/images/arrow-right.svg')"></button>
+                    </div>
+                </div>
+                <div class="col-xs-6 col-sm-4 col-md-4 col-lg-4 column">
+                    <div class="sound">
+                        <div class="display">
+                            <ul id="sound">
+                                <li class="active">1</li>
+                                <li>2</li>
+                                <li>3</li>
+                                <li>4</li>
+                            </ul>
+                        </div>
+                        <button id="button-sound-down" class="metronome-button prev" style="background-image: url('../../src/assets/images/arrow-left.svg')"></button>
+                        <button id="button-sound-up" class="metronome-button next" style="background-image: url('../../src/assets/images/arrow-right.svg')"></button>
+                    </div>
+                </div>
+            </div>
+            <div class="row metronome-content middle">
+                <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 column">
+                    <div class="tempo-slider">
+                        <input id="tempo-slider" type="range" min="1" max="250" step="1" value="80">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 column">
+                    <div class="tempo-control">
+                        <button id="button-tempo-down" class="metronome-button tempo-button prev" style="background-image: url('../../src/assets/images/minus.svg')"></button>
+                        <button id="button-tempo-up"   class="metronome-button tempo-button next" style="background-image: url('../../src/assets/images/plus.svg')"></button>
+                    </div>
+                </div>
+            </div>
+            <div class="row metronome-content bottom">
+                <div class="col-xs-6 col-sm-4 col-md-4 col-lg-4 column">
+                    <div class="volume">
+                        <div class="display">
+                            <ul id="volume">
+                                <li>●</li>
+                                <li>●</li>
+                                <li>●</li>
+                                <li>●</li>
+                                <li class="active">●</li>
+                                <li>●</li>
+                                <li>●</li>
+                                <li>●</li>
+                                <li>●</li>
+                                <li>●</li>
+                            </ul>
+                        </div>
+                        <button id="button-volume-down" class="metronome-button prev" style="background-image: url('../../src/assets/images/arrow-left.svg')" ></button>
+                        <button id="button-volume-up" class="metronome-button next" style="background-image: url('../../src/assets/images/arrow-right.svg')"></button>
+                    </div>
+                </div>
+                <div class="col-xs-6 col-sm-4 col-sm-offset-4 column">
+                    <div class="run">
+                        <button id="run" class="run-button" style="background-image: url('../../src/assets/images/play.svg')"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </metronome>
+
+    <h2 class="hidden">FOOTER</h2>
+    <div class="footer"></div>
+</div>
+
 </body>
 </html>
