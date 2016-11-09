@@ -1,11 +1,14 @@
-import {Component, Input, trigger, state, style, transition, animate, keyframes, OnInit} from '@angular/core';
-
-import {TempoService} from './service/tempo.service';
+import {Component, Input, trigger, state, style, transition, animate, keyframes} from '@angular/core';
 
 @Component({
     selector: 'metronome-tempo',
     templateUrl: './metronome.tempo.html',
-    styles: [``],
+    styles: [`
+.name {
+font-size: 20px;
+text-align: left;
+}
+`],
     animations: [
         trigger("displayTempo", [
             state('play', style({transform:"scale(1,1)"}) ),
@@ -31,19 +34,9 @@ import {TempoService} from './service/tempo.service';
         ])
     ],
     providers : [
-        TempoService
     ]
 })
 export class MetronomeTempoComponent {
     @Input() tempo : number;
     @Input() runStatus : string;
-
-    constructor (
-        private tempoService : TempoService
-    ){};
-
-    ngOnInit(): void {
-        console.log( this.tempoService.tempo );
-        this.tempo = this.tempoService.tempo;
-    }
 }

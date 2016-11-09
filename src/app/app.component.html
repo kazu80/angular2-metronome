@@ -3,7 +3,7 @@
 
     <div class="row metronome-content top">
         <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 column">
-            <metronome-tempo tempo="{{tempoService.tempo}}" runStatus="{{tempoService.animation}}"></metronome-tempo>
+            <metronome-tempo [tempo]="tempoService.tempo" [runStatus]="tempoService.animation"></metronome-tempo>
         </div>
         <div class="col-xs-6 col-sm-4 col-md-4 col-lg-4 column">
             <metronome-beat></metronome-beat>

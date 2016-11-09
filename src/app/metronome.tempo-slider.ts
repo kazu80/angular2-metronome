@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {TempoService} from "./service/tempo.service";
 
 @Component({
     selector: 'metronome-tempo-slider',
@@ -6,11 +7,14 @@ import {Component, OnInit} from '@angular/core';
     styles: ['']
 })
 export class MetronomeTempoSlider implements OnInit {
+
+    constructor(private service: TempoService) {}
+
     ngOnInit(): void {
         
     }
-    
-    public onChange (e) {
-        console.log(e.value);
+
+    public onChange (e: any) {
+        this.service.tempo = e.target.value;
     }
 }

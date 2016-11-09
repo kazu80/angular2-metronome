@@ -6,7 +6,7 @@ import {BeatService, Beat} from './service/beat.service';
 @Component({
     selector: 'metronome-beat',
     templateUrl: './metronome.beat.html',
-    styleUrls: ['./metronome.beat.scss']
+    styleUrls: ['./metronome.beat.scss'],
 })
 export class MetronomeBeatComponent implements OnInit {
 
