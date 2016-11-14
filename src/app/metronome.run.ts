@@ -54,6 +54,9 @@ export class MetronomeRunComponent implements OnInit{
     src               : any;
     gainVolume        : any;
 
+    source            : MediaElementAudioSourceNode;
+    audioBeat         : HTMLAudioElement;
+
     constructor (
         private volumeService: VolumeService,
         private beatService: BeatService,
@@ -69,10 +72,19 @@ export class MetronomeRunComponent implements OnInit{
         this.beatContext  = new AudioContext();
 
         this.gainVolume   = this.tempoContext.createGain();
-        this.sound        = this.soundService.getSelected();
+
+        this.sound        = this.soundService.getSelected;
 
         this.LoadSample(this.tempoContext, this.sound.file);
-        this.LoadSampleBeat(this.beatContext, '../../src/assets/sound/s_02.mp3');
+
+        this.Load(this.beatContext, '../../src/assets/sound/s_02.mp3');
+    }
+
+    private Load (context: AudioContext, path: string) {
+        this.audioBeat          = new Audio(path);
+        this.audioBeat.controls = true;
+
+        this.source = context.createMediaElementSource(this.audioBeat);
     }
 
     private LoadSample (ctx: any, url: string) {
@@ -100,16 +112,17 @@ export class MetronomeRunComponent implements OnInit{
     }
 
     private PlayBeat () {
-        var src = this.tempoContext.createBufferSource();
-
         this.volume = this.volumeService.getSelected();
 
-        src.connect(this.gainVolume);
-        this.gainVolume.gain.value = this.volume.volume * 0.1;
+        const gain: GainNode = this.beatContext.createGain();
 
-        src.buffer = this.bufferBeat;
-        this.gainVolume.connect(this.tempoContext.destination);
-        src.start(0);
+        this.source.connect(gain);
+
+        gain.gain.value = this.volume.volume * 0.1;
+
+        gain.connect(this.beatContext.destination);
+
+        this.audioBeat.play();
     }
 
     private Play () {

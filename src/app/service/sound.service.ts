@@ -14,17 +14,27 @@ const SOUNDS: Sound[] = [
 
 @Injectable()
 export class SoundService {
-    selectedValue : any;
-    
+    private _selectedValue  : Sound;
+    private _audio : HTMLAudioElement;
+
+    get audio(): HTMLAudioElement {
+        return this._audio;
+    }
+
     public getValues() : Sound[] {
         return SOUNDS;
     }
     
-    public getSelected() : any {
-        return this.selectedValue;
+    get getSelected() : Sound {
+        return this._selectedValue;
     }
     
-    public setSelected(value : any ) : void {
-        this.selectedValue = value;
+    public setSelected( value : Sound ) : void {
+        this._selectedValue = value;
     }
+
+    public createAudioInstance ( path : string ) : void {
+        this._audio = new Audio(path);
+    }
+
 }
