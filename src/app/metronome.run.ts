@@ -44,26 +44,17 @@ export class MetronomeRunComponent implements OnInit{
     interval          : any;
 
     beat              : Beat;
-    sound             : Sound;
     tempo             : number;
     button            : string;
-
-    gainVolume        : GainNode;
 
     contextTempo      : AudioContext;
     contextBeat       : AudioContext;
 
-    sourceBeat        : MediaElementAudioSourceNode;
-    sourceTempo       : MediaElementAudioSourceNode;
-
-    audioBeat         : HTMLAudioElement;
-    audioTempo        : HTMLAudioElement;
-
     constructor (
         private volumeService: VolumeService,
-        private beatService: BeatService,
-        private soundService: SoundService,
-        private tempoService: TempoService
+        private beatService:   BeatService,
+        private soundService:  SoundService,
+        private tempoService:  TempoService
     ){}
 
     ngOnInit():void {
@@ -72,16 +63,6 @@ export class MetronomeRunComponent implements OnInit{
 
         this.contextTempo = new AudioContext();
         this.contextBeat  = new AudioContext();
-
-        this.gainVolume   = this.contextTempo.createGain();
-
-        this.sound        = this.soundService.getSelected;
-
-        this.audioBeat   = MetronomeRunComponent.getAudio('../../src/assets/sound/s_02.mp3');
-        this.sourceBeat  = this.contextBeat.createMediaElementSource(this.audioBeat);
-
-        this.audioTempo  = MetronomeRunComponent.getAudio(this.sound.file);
-        this.sourceTempo = this.contextTempo.createMediaElementSource(this.audioTempo);
     }
 
     private static getAudio (path: string) : HTMLAudioElement {
@@ -105,29 +86,40 @@ export class MetronomeRunComponent implements OnInit{
     }
 
     private onClick() {
-        this.isDuringExecution = this.isDuringExecution  ? false      : true;
+        const sound        : Sound = this.soundService.getSelected;
+
+        const audioTempo   : HTMLAudioElement             = MetronomeRunComponent.getAudio(sound.file);
+        const audioBeat    : HTMLAudioElement             = MetronomeRunComponent.getAudio('../../src/assets/sound/s_02.mp3');
+
+        const sourceTempo  : MediaElementAudioSourceNode  = this.contextTempo.createMediaElementSource(audioTempo);
+        const sourceBeat   : MediaElementAudioSourceNode  = this.contextBeat.createMediaElementSource(audioBeat);
+
+        this.isDuringExecution = !this.isDuringExecution;
         this.button            = this.button == "active" ? "inactive" : "active";
 
+        // 停止
         if (!this.isDuringExecution) {
             clearInterval(this.interval);
             return;
         }
 
-        var count : number = 0;
-
+        // ビート
         this.beat   = this.beatService.getSelected();
-        this.tempo  = this.tempoService.tempo;
+        const beatCount : number = this.beat.beat;
 
-        var beatCount : number = this.beat.beat;
+        // テンポ
+        this.tempo    = this.tempoService.tempo;
 
+        // Run
+        let count : number = 0;
         this.interval = setInterval(() => {
             count++;
 
             if ( count % beatCount == 0) {
-                this.playAudio(this.audioBeat, this.contextBeat, this.sourceBeat);
+                this.playAudio(audioBeat, this.contextBeat, sourceBeat);
                 this.tempoService.animation = "play";
             } else {
-                this.playAudio(this.audioTempo, this.contextTempo, this.sourceTempo);
+                this.playAudio(audioTempo, this.contextTempo, sourceTempo);
                 this.tempoService.animation = "play";
             }
         }, 60 * 1000 / this.tempo);
