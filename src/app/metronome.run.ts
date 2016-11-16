@@ -73,7 +73,7 @@ export class MetronomeRunComponent implements OnInit{
         return audio;
     }
 
-    private playAudio ( audio: HTMLAudioElement, context: AudioContext, source: MediaElementAudioSourceNode ) {
+    private setUpGain(context: AudioContext, source: MediaElementAudioSourceNode) {
         const volumeSelected : Volume   = this.volumeService.getSelected();
         const volumeGain     : GainNode = context.createGain();
 
@@ -81,7 +81,9 @@ export class MetronomeRunComponent implements OnInit{
 
         source.connect(volumeGain);
         volumeGain.connect(context.destination);
+    }
 
+    private static playAudio(audio: HTMLAudioElement) {
         audio.play();
     }
 
@@ -110,16 +112,20 @@ export class MetronomeRunComponent implements OnInit{
         // テンポ
         this.tempo    = this.tempoService.tempo;
 
+        // 音量設定（Gain）
+        this.setUpGain(this.contextTempo, sourceTempo);
+        this.setUpGain(this.contextBeat, sourceBeat);
+
         // Run
         let count : number = 0;
         this.interval = setInterval(() => {
             count++;
 
             if ( count % beatCount == 0) {
-                this.playAudio(audioBeat, this.contextBeat, sourceBeat);
+                MetronomeRunComponent.playAudio(audioBeat);
                 this.tempoService.animation = "play";
             } else {
-                this.playAudio(audioTempo, this.contextTempo, sourceTempo);
+                MetronomeRunComponent.playAudio(audioTempo);
                 this.tempoService.animation = "play";
             }
         }, 60 * 1000 / this.tempo);
