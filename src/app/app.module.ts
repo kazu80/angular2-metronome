@@ -9,21 +9,27 @@ import {MetronomeTempoSlider} from "./metronome.tempo-slider";
 import {MetronomeTempoControllerComponent} from "./metronome.tempo-control";
 import {MetronomeVolumeComponent} from "./metronome.volume";
 import {MetronomeRunComponent} from "./metronome.run";
+import {routing} from "./app.routing";
+import {StopWatchComponent} from "./stop-watch.component";
+import {MetronomeTop} from "./metronome.top";
 
 
 @NgModule({
     imports: [
-        BrowserModule
+        BrowserModule,
+        routing
     ],
     declarations: [
         AppComponent,
+        MetronomeTop,
         MetronomeTempoComponent,
         MetronomeBeatComponent,
         MetronomeSoundComponent,
         MetronomeTempoSlider,
         MetronomeTempoControllerComponent,
         MetronomeVolumeComponent,
-        MetronomeRunComponent
+        MetronomeRunComponent,
+        StopWatchComponent
     ],
     bootstrap: [AppComponent]
 })

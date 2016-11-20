@@ -23,7 +23,7 @@
         }
     }
 
-    .notification {
+    @mixin menu {
         position: relative;
         height: 60px;
         width: 60px;
@@ -36,7 +36,16 @@
         transition: opacity 0.15s;
     }
 
+    .menu {
+        @include menu;
+    }
+
+    .notification {
+        @include menu;
+    }
+
     @media (max-width:$screen-xs-max) {
+        .menu,
         .notification {
             height   : 40px;
             width    : 40px;
@@ -44,10 +53,12 @@
         }
     }
 
+    .menu:hover,
     .notification:hover {
         opacity: 1;
     }
 
+    .menu.off,
     .notification.off {
         background-color: #b5b5b5;
     }

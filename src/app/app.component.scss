@@ -1,0 +1,38 @@
+@import "../scss/_bootstrap.scss";
+@import "../scss/header";
+
+@mixin menu-icon {
+    border : none;
+}
+
+@mixin menu-icon-after {
+    display             : inline-block;
+    content             : '';
+    width               : 60px;
+    height              : 60px;
+    background-repeat   : no-repeat;
+    background-position : center;
+    background-size     : 50%;
+
+}
+
+.menu.on.stop-watch {
+    @include menu-icon;
+    background-color : #368cbf;
+}
+
+.menu.on.stop-watch::after {
+    @include menu-icon-after;
+    background-image : url("../../src/assets/images/stopwatch.svg");
+}
+
+.menu.on.version-1 {
+    @include menu-icon;
+    background-color : #368cbf;
+}
+
+.menu.on.version-1::after {
+    @include menu-icon-after;
+    background-image : url("../../src/assets/images/metronome.svg");
+}
+
