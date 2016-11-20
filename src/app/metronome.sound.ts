@@ -25,8 +25,6 @@ export class MetronomeSoundComponent implements OnInit, DoCheck {
     }
 
     ngDoCheck(): void {
-        console.log('do check');
-
         this.service.setSelected(this.selectedSound);
     }
 

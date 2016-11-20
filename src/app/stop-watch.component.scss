@@ -2,3 +2,25 @@
     margin-top : 20px;
     font-size  : 110px;
 }
+
+body {
+    filter : grayscale(100%);
+}
+
+.effect-warning {
+    animation-name            : warning;
+    animation-duration        : 500ms;
+    animation-iteration-count : infinite;
+}
+
+@keyframes warning {
+    from, to {
+        color  : #000000;
+        filter : blur(0);
+    }
+
+    50% {
+        color  : #ff0000;
+        filter : blur(1px);
+    }
+}

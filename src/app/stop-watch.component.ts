@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, trigger, animate, keyframes, style} from "@angular/core";
 import Timer = NodeJS.Timer;
 import {Router, NavigationStart, NavigationEnd} from "@angular/router";
 @Component({
@@ -9,6 +9,8 @@ import {Router, NavigationStart, NavigationEnd} from "@angular/router";
 export class StopWatchComponent implements OnInit {
     time: string = "00:00:00 000";
     interval_id: Timer;
+    isWarning: boolean = false;
+    audio: HTMLAudioElement;
 
     constructor(router: Router) {
         router.events.subscribe((val) => {
@@ -16,6 +18,10 @@ export class StopWatchComponent implements OnInit {
             if (val instanceof NavigationStart) {
                 if (this.interval_id) {
                     clearInterval(this.interval_id);
+                    if (this.audio) {
+                        this.audio.pause();
+                    }
+
                 }
             }
         });
@@ -23,7 +29,8 @@ export class StopWatchComponent implements OnInit {
 
     ngOnInit(): void {
         // 5分
-        const start: number = 1000 * 5 * 60;
+        //const start: number = 1000 * 60 * 5;
+        const start: number = 1000 * 31;
         this.time = StopWatchComponent.createTime(start);
 
         this.start(start);
@@ -52,11 +59,30 @@ export class StopWatchComponent implements OnInit {
         this.interval_id = setInterval(() => {
             time = time - 10;
 
+            if (time == 1000 * 27) {
+                this.heartSound("../../src/assets/sound/heart-sound.mp3");
+            }
+
+            if (time < 1000 * 60) {
+                this.isWarning = true;
+            }
+
             if (time < 0) {
+                this.isWarning = false;
                 clearInterval(this.interval_id);
+                this.heartSound("../../src/assets/sound/siren.mp3");
+                this.time = "00:00:00 000";
+                return;
             }
 
             this.time = StopWatchComponent.createTime(time);
         }, 10);
     }
+
+
+    private heartSound(path: string) {
+        this.audio = new Audio(path);
+        this.audio.play();
+    }
+
 }
