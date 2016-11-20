@@ -1,1 +1,4 @@
-<div class="monitor" [class.effect-warning]="isWarning">{{time}}</div>
+<div class="monitor" [class.effect-warning]="isWarning">
+    {{time}}
+    <div class="start" (click)="startWatch()"></div>
+</div>

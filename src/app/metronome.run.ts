@@ -60,9 +60,6 @@ export class MetronomeRunComponent implements OnInit{
     ngOnInit():void {
         this.isDuringExecution = false;
         this.button            = "inactive";
-
-        this.contextTempo = new AudioContext();
-        this.contextBeat  = new AudioContext();
     }
 
     private static getAudio (path: string) : HTMLAudioElement {
@@ -89,6 +86,14 @@ export class MetronomeRunComponent implements OnInit{
 
     private onClick() {
         const sound        : Sound = this.soundService.getSelected;
+
+        if (!this.contextTempo) {
+            this.contextTempo = new AudioContext();
+        }
+
+        if (!this.contextBeat) {
+            this.contextBeat = new AudioContext();
+        }
 
         const audioTempo   : HTMLAudioElement             = MetronomeRunComponent.getAudio(sound.file);
         const audioBeat    : HTMLAudioElement             = MetronomeRunComponent.getAudio('../../src/assets/sound/s_02.mp3');

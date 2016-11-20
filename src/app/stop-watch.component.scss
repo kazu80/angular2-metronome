@@ -1,6 +1,24 @@
 .monitor {
+    position   : relative;
     margin-top : 20px;
     font-size  : 110px;
+}
+
+.start {
+    position            : absolute;
+    top                 : 50%;
+    right               : 0;
+    transform           : translate(0, -50%);
+    content             : "";
+    width               : 80px;
+    height              : 80px;
+    background-color    : #666666;
+    cursor              : pointer;
+    background-image    : url("../../src/assets/images/play.svg");
+    background-repeat   : no-repeat;
+    background-position : center;
+    background-size     : 50%;
+    box-shadow          : 5px 5px 10px #222222;
 }
 
 body {

@@ -3,6 +3,7 @@
 
 @mixin menu-icon {
     border : none;
+    cursor : pointer;
 }
 
 @mixin menu-icon-after {
@@ -18,7 +19,7 @@
 
 .menu.on.stop-watch {
     @include menu-icon;
-    background-color : #368cbf;
+    background-color : #dcdcdc;
 }
 
 .menu.on.stop-watch::after {
@@ -28,7 +29,7 @@
 
 .menu.on.version-1 {
     @include menu-icon;
-    background-color : #368cbf;
+    background-color : #dcdcdc;
 }
 
 .menu.on.version-1::after {

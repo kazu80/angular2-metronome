@@ -7,10 +7,14 @@ import {Router, NavigationStart, NavigationEnd} from "@angular/router";
     styleUrls: ['./stop-watch.component.scss'],
 })
 export class StopWatchComponent implements OnInit {
-    time: string = "00:00:00 000";
     interval_id: Timer;
-    isWarning: boolean = false;
     audio: HTMLAudioElement;
+
+    time: string = "00:00 000";
+    isWarning: boolean = false;
+    //start_time:  number  = 1000 * 60 * 5;
+    start_time: number = 1000 * 31;
+    isStart: boolean = false;
 
     constructor(router: Router) {
         router.events.subscribe((val) => {
@@ -21,19 +25,24 @@ export class StopWatchComponent implements OnInit {
                     if (this.audio) {
                         this.audio.pause();
                     }
-
                 }
             }
         });
     }
 
     ngOnInit(): void {
-        // 5分
-        //const start: number = 1000 * 60 * 5;
-        const start: number = 1000 * 31;
-        this.time = StopWatchComponent.createTime(start);
+        this.time = StopWatchComponent.createTime(this.start_time);
+    }
 
-        this.start(start);
+    private startWatch() {
+        if (this.isStart) {
+            clearInterval(this.interval_id);
+            this.time = StopWatchComponent.createTime(this.start_time);
+        } else {
+            this.start(this.start_time);
+        }
+
+        this.isStart = !this.isStart;
     }
 
     private static createTime(time: number) {
@@ -52,7 +61,7 @@ export class StopWatchComponent implements OnInit {
         const sec_s: string = ('00' + sec).slice(-2);
         const msec_s: string = ('000' + msec).slice(-3);
 
-        return hour_s + ":" + min_s + ":" + sec_s + " " + msec_s;
+        return min_s + ":" + sec_s + " " + msec_s;
     }
 
     private start(time: number) {
@@ -71,7 +80,7 @@ export class StopWatchComponent implements OnInit {
                 this.isWarning = false;
                 clearInterval(this.interval_id);
                 this.heartSound("../../src/assets/sound/siren.mp3");
-                this.time = "00:00:00 000";
+                this.time = "00:00 000";
                 return;
             }
 
